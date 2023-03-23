@@ -1,0 +1,35 @@
+---
+title: "Untitled"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+This is my first template file.
+
+```{r Practice file}
+
+library(readr)
+tidyr
+dt <- readr::read_csv("refine_original_toy_data.csv")
+pacman::p_load(Skimr,kableExtra,dplyr,tidyr)
+skimr::skim(dt) %>% View()
+kable(dt)
+```
+
+```{r Editing}
+dt <- dt %>%
+    separate(`Product code / number`, into = c("product_code","Product_number"),sep = "-")
+
+
+
+dt$product_category <- case_when(dt$product_code=="p" ~ "Smartphone",
+          dt$product_code=="x" ~ "Laptop",
+          dt$product_code=="v" ~ "TV", 
+          dt$product_code=="q" ~ "Tablet")
+
+dt <- dt %>%
+    unite(full_address, c(address, city, country), sep = ",")
+```
