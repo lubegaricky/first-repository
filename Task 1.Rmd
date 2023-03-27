@@ -101,7 +101,57 @@ View(df3)
 
 # df3 <- read_tsv("data/demo data text.txt")
 
-util
+# utils:: Package
+
+#Importing an Excel file
+# install package
+install.packages("readxl")
+# load package
+library(readxl)
+# by default, it loads the first sheet
+excel_data <- read_excel("demo excel data.xlsx") 
+View(excel_data)
+# excel_data <- read_excel("data/demo excel data.xlsx")
+# if the excell workbook has many sheets and you want to
+# load a specific one, e,g, sheet two
+excel_data <- read_excel("demo excel data.xlsx", sheet = 2)
+
+#Importing a Stata file
+install.packages("readstata13")
+library(readstata13)
+stata_data <- read.dta13("demo stata data.dta", generate.factors = TRUE)
+View(stata_data)
+# stata_data <- read.dta13("data/demo stata data.dta", generate.factors = TRUE)
+
+#Importing an R data file
+load("demo R data.rda")
+
+#Inbuilt Data sets
+# Loading
+data(mtcars)
+# learn more about the data
+`?`(mtcars)
+# OR
+help(mtcars)
+# list available datasets in ggplot2 package
+pacman::p_load(ggplot2)
+data(package = "ggplot2")
+
+# For a better visual display of the results, additional packages can be used such as skimr, gtsummary, kable, 
+install.packages("skimr")
+library(skimr)
+# get the summary of all the variable, alternative to str()
+View(iris)
+skim(iris)
+
+sales_report <- readr::read_csv("sales_data.csv")
+sales_report
+
+skim(sales_report)
+
+write.csv(sales_report, file = "my_data.csv")  # exporting csv data file
+
 ```
 
 Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
