@@ -32,4 +32,11 @@ dt$product_category <- case_when(dt$product_code=="p" ~ "Smartphone",
 
 dt <- dt %>%
     unite(full_address, c(address, city, country), sep = ",")
+?case_when
 ```
+
+```{r}
+example(persp)
+Jack
+```
+

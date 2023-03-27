@@ -1,0 +1,107 @@
+---
+title: "Practice Task 1"
+author: "Richard"
+date: "2023-03-20"
+output: word_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r Problem 1}
+# required packages
+# library(readr)
+# library(tidyr)
+# library(dplyr)
+
+pacman::p_load(dplyr,readr,tidyr,readxl)
+
+# dt <- readxl::read_excel("refine_original_toy_data.xlsx")[1]
+# dt <- dt[,1] %>%
+# separate(sep = ",")
+
+dt <- read_csv("refine_original_toy_data_csv.csv")
+# unique(dt$)
+```
+
+
+```{r Problem 2}
+dt <- dt %>%
+    mutate(company = ifelse(grepl("^phil|^fil|^phl", company,
+        ignore.case = TRUE), "philips", company)) %>%
+    mutate(company = ifelse(grepl("^ak", company, ignore.case = TRUE),
+        "akzo", company)) %>%
+    mutate(company = ifelse(grepl("^van", company, ignore.case = TRUE),
+        "van_houten", company)) %>%
+    mutate(company = ifelse(grepl("^uni", company, ignore.case = TRUE),
+        "unilever", company))
+```
+
+```{r Problem 3}
+dt <- dt %>%
+    separate(`Product code / number`, into = c("product_code",
+        "Product_number"), sep = "-")
+```
+
+```{r Problem 4}
+dt <- dt %>%
+    mutate(product_category = ifelse(product_code == "p", "Smartphone",
+        "")) %>%
+    mutate(product_category = ifelse(product_code == "x", "Laptop",
+        product_category)) %>%
+    mutate(product_category = ifelse(product_code == "v", "TV",
+        product_category)) %>%
+    mutate(product_category = ifelse(product_code == "q", "Tablet",
+        product_category))
+```
+
+```{r Problem 5}
+dt <- dt %>%
+    unite(full_address, c(address, city, country), sep = ",")
+```
+
+```{r Problem 6}
+dt <- dt %>%
+    mutate(company_philips = ifelse(company == "philips", 1,
+        0)) %>%
+    mutate(company_akzo = ifelse(company == "akzo", 1, 0)) %>%
+    mutate(company_van_houten = ifelse(company == "van_houten",
+        1, 0)) %>%
+    mutate(company_unilever = ifelse(company == "unilever", 1,
+        0))
+```
+
+```{r Problem 7}
+dt <- dt %>%
+    mutate(product_smartphone = ifelse(product_category == "Smartphone",
+        1, 0)) %>%
+    mutate(product_TV = ifelse(product_category == "TV", 1, 0)) %>%
+    mutate(product_laptop = ifelse(product_category == "Laptop",
+        1, 0)) %>%
+    mutate(product_tablet = ifelse(product_category == "Tablet",
+        1, 0))
+```
+
+```{r Working with Data}
+# install th read r package
+# install.packages(readr)
+# load the read r package
+library(readr)
+# read csv file using read.table()
+df1 <- read_csv("demo csv data.csv", show_col_types = FALSE)
+# df1 <- read_csv("data/demo csv data.csv", show_col_types = FALSE)
+# read txt file that doesnot headers
+library(dplyr)
+df2 <- read_delim("demo data text.txt")
+# df2 <- read_delim("data/demo data text.txt")
+# Or use
+df3 <- read_tsv("demo data text.txt") 
+View(df3)
+
+# df3 <- read_tsv("data/demo data text.txt")
+
+util
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
