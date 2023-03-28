@@ -149,7 +149,47 @@ sales_report
 
 skim(sales_report)
 
-write.csv(sales_report, file = "my_data.csv")  # exporting csv data file
+write.csv(sales_report, file = "C:/Users/RichardLubega/Downloads/R Project/Exported Files/my_data.csv")  # exporting csv data file
+
+```
+
+```{r Task 1}
+summary(sales_report)
+
+# Load a new data file named “customer_data.xlsx” into RStudio.
+excel_file <- readxl::read_xlsx("demo excel data.xlsx")
+skim(excel_file)
+
+head(excel_file, n=13)
+?tibble
+tail(excel_file)
+
+str(excel_file)
+
+summary(excel_file)
+
+pacman::p_load(writexl)
+writexl::write_xlsx(excel_file, file ="C:/Users/RichardLubega/Downloads/R Projects/Exported Files/my_data.xlsx")
+writexl::write_xlsx(excel_file, file ="my_data.xlsx")
+
+# writexl::write_xlsx(data_object, file = "my_data.rda") #exporting excel data file
+```   
+```{r Task 2}
+data(iris)
+?iris
+flower_data <- iris
+# Using the “plot” function, create a scatter plot of the “Sepal.Length” and “Sepal.Width” columns in the “iris” object.
+plot(flower_data$Sepal.Length,flower_data$Sepal.Width)
+
+# Using the “boxplot” function, create a box plot of the “Petal.Length” column in the “iris” object, grouped by the “Species” column.
+boxplot(flower_data$Petal.Length,flower_data$Species)
+?boxplot
+
+# Using the “hist” function, create a histogram of the “Petal.Width” column in the “iris” object, grouped by the “Species” column.
+hist(x= flower_data$Petal.Width, y=flower_data$Species)
+
+# Using the “plot” function, create a line plot of the “Sepal.Length” column in the “iris” object, grouped by the “Species” column.
+
 
 ```
 
