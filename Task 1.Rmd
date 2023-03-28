@@ -149,7 +149,7 @@ sales_report
 
 skim(sales_report)
 
-write.csv(sales_report, file = "C:/Users/RichardLubega/Downloads/R Project/Exported Files/my_data.csv")  # exporting csv data file
+write.csv(sales_report, file = "C:/Users/RichardLubega/Downloads/R Projects/Exported Files/my_data.csv")  # exporting csv data file
 
 ```
 
@@ -169,8 +169,11 @@ str(excel_file)
 summary(excel_file)
 
 pacman::p_load(writexl)
-writexl::write_xlsx(excel_file, file ="C:/Users/RichardLubega/Downloads/R Projects/Exported Files/my_data.xlsx")
-writexl::write_xlsx(excel_file, file ="my_data.xlsx")
+writexl::write_xlsx()
+
+writexl::write_xlsx(excel_file, path ="C:/Users/RichardLubega/Downloads/R Projects/Exported Files/my_data.xlsx")
+
+writexl::write_xlsx(excel_file,path = "my_data.xlsx")
 
 # writexl::write_xlsx(data_object, file = "my_data.rda") #exporting excel data file
 ```   
@@ -179,14 +182,26 @@ data(iris)
 ?iris
 flower_data <- iris
 # Using the “plot” function, create a scatter plot of the “Sepal.Length” and “Sepal.Width” columns in the “iris” object.
-plot(flower_data$Sepal.Length,flower_data$Sepal.Width)
+plot(x= flower_data$Sepal.Length, y=flower_data$Sepal.Width)
 
 # Using the “boxplot” function, create a box plot of the “Petal.Length” column in the “iris” object, grouped by the “Species” column.
 boxplot(flower_data$Petal.Length,flower_data$Species)
+library(dplyr)
+boxplot(x = flower_data$Sepal.Length)
+
+library(ggplot2)
+
+flower_data %>% 
+  ggplot()+ aes(x = Species, y = Sepal.Length)+
+  geom_boxplot()
+
+plot()
+
 ?boxplot
 
 # Using the “hist” function, create a histogram of the “Petal.Width” column in the “iris” object, grouped by the “Species” column.
-hist(x= flower_data$Petal.Width, y=flower_data$Species)
+Group by=flower_data$Species
+hist(x= flower_data$Petal.Width)
 
 # Using the “plot” function, create a line plot of the “Sepal.Length” column in the “iris” object, grouped by the “Species” column.
 
