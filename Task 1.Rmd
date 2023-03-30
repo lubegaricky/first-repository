@@ -15,7 +15,7 @@ knitr::opts_chunk$set(echo = TRUE)
 # library(tidyr)
 # library(dplyr)
 
-pacman::p_load(dplyr,readr,tidyr,readxl)
+pacman::p_load(dplyr,readr,tidyr,readxl,ggplot2,skimr,gtExtras)
 
 # dt <- readxl::read_excel("refine_original_toy_data.xlsx")[1]
 # dt <- dt[,1] %>%
@@ -24,7 +24,6 @@ pacman::p_load(dplyr,readr,tidyr,readxl)
 dt <- read_csv("refine_original_toy_data_csv.csv")
 # unique(dt$)
 ```
-
 
 ```{r Problem 2}
 dt <- dt %>%
@@ -176,7 +175,8 @@ writexl::write_xlsx(excel_file, path ="C:/Users/RichardLubega/Downloads/R Projec
 writexl::write_xlsx(excel_file,path = "my_data.xlsx")
 
 # writexl::write_xlsx(data_object, file = "my_data.rda") #exporting excel data file
-```   
+```
+
 ```{r Task 2}
 data(iris)
 ?iris
@@ -200,7 +200,7 @@ plot()
 ?boxplot
 
 # Using the “hist” function, create a histogram of the “Petal.Width” column in the “iris” object, grouped by the “Species” column.
-Group by=flower_data$Species
+group_by(flower_data)=flower_data$Species
 hist(x= flower_data$Petal.Width)
 
 # Using the “plot” function, create a line plot of the “Sepal.Length” column in the “iris” object, grouped by the “Species” column.
@@ -208,5 +208,89 @@ hist(x= flower_data$Petal.Width)
 
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+```{r Data Wrangling Packages}
+# A dataset from the ggplot2 package called msleep.
+data_set1 <- msleep
 
+skimr::skim(data_set1)
+
+?msleep
+data()
+data(package="ggplot2")
+
+glimpse(data_set1)
+summary(data_set1)
+
+#Filtering Rows
+filter(data_set1,data_set1$order == "Primates")
+
+data_set1 %>% 
+  filter(data_set1$order =="Primates")
+data_set1 %>%
+  filter(order == "Primates" & sleep_total > 10)
+
+# Filtering Columns
+data_set1 %>%
+    filter(order == "Primates", sleep_total > 10) %>%
+    select(name, sleep_total, sleep_rem, sleep_cycle)
+
+data_set1 %>% #Renaming columns
+    filter(order == "Primates", sleep_total > 10) %>%
+    select(name, total = sleep_total, rem = sleep_rem, cycle = sleep_cycle)
+
+data_set1 %>%
+    filter(order == "Primates", sleep_total > 10) %>%
+    rename(total = sleep_total, rem = sleep_rem, cycle = sleep_cycle)
+
+# Reordering Columns
+data_set1 %>%
+    filter(order == "Primates", sleep_total > 10) %>%
+    select(name, sleep_rem, sleep_cycle, sleep_total)
+
+# Reordering Rows
+data_set1 %>%
+    filter(order == "Primates", sleep_total > 10) %>%
+    select(name, sleep_rem, sleep_cycle, sleep_total) %>%
+    arrange(sleep_total)# ordering in ascending order
+
+data_set1 %>%
+    filter(order == "Primates", sleep_total > 10) %>%
+    select(name, sleep_rem, sleep_cycle, sleep_total) %>%
+    arrange(desc(sleep_total)) #Ordering in descending order
+
+data_set1 %>%
+    filter(order == "Primates", sleep_total > 10) %>%
+    select(name, sleep_rem, sleep_cycle, sleep_total) %>%
+    arrange(name) #can also be used to order non-numeric variables. 
+
+data_set1 %>%
+    filter(order == "Primates", sleep_total > 10) %>%
+    select(name, sleep_rem, sleep_cycle, sleep_total) %>%
+    arrange(name, sleep_total)# reorder rows based on information in multiple columns
+
+#Creating New Columns
+data_set1 %>%
+    filter(order == "Primates", sleep_total > 10) %>%
+    select(name, sleep_rem, sleep_cycle, sleep_total) %>%
+    arrange(name) %>%
+    mutate(sleep_total_min = sleep_total * 60) #we can create a new column
+
+
+#Statistics in R
+gtExtras::gt_plt_summary(data_set1)
+
+t.test(data_set1$sleep_total, mu = 10)
+
+t.test(data_set1$sleep_total, mu = 13, alternative = "greater", conf.level = .98)
+
+wilcox.test(data_set1$sleep_total, mu = 13)
+
+qqnorm(data_set1$sleep_total)
+qqline(data_set1$sleep_total, lty = 2)
+
+shapiro.test(data_set1$sleep_total)
+
+
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
