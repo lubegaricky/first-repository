@@ -290,6 +290,57 @@ qqline(data_set1$sleep_total, lty = 2)
 
 shapiro.test(data_set1$sleep_total)
 
+atmos <- read.table("atmosphere.txt", header = TRUE)
+str(atmos)
+skim(atmos)
+
+t.test(atmos$moisture ~ atmos$treatment)
+t.test(atmos$moisture ~ atmos$treatment, var.equal = TRUE)
+var.test(atmos$moisture ~ atmos$treatment)
+
+pollution <- read.table("pollution.txt", header = TRUE)
+str(pollution)
+t.test(pollution$down, pollution$up, paired = TRUE)
+wilcox.test(pollution$down, pollution$up, paired = TRUE)
+
+buy <- c(45, 71)  # creates a vector of positive outcomes
+total <- c((45 + 35), (71 + 32))  # creates a vector of total numbers
+prop.test(buy, total)  # perform the test (the binomial proportions test)
+ 
+#A Chi-square contingency table. The simplest method is to convert the tabulated table into a 2 x 2 matrix using the matrix() function
+buyers <- matrix(c(45, 35, 71, 32), nrow = 2)
+colnames(buyers) <- c("before", "after")
+rownames(buyers) <- c("buy", "notbuy")
+buyers
+
+chisq.test(buyers)#You can then perform a Chi-square test to test whether the number of cat owners buying the cat food is independent of the advertising campaign
+
+# You can also use the chisq.test() function on raw (un-tabulated) data and to test for goodness of fit (see ?chisq.test for more details).'
+
+data(trees) # Data is an in-built data set.
+str(trees)
+
+cor(trees$Height, trees$Volume)
+cor(trees)
+cor(trees, use = "complete.obs")
+cor.test(trees$Height, trees$Volume)
+cor.test(trees$Height, trees$Volume, method = "spearman")
+cor.test(trees$Height, trees$Volume, method = "Kendall")
+data()
+
+data(package = .packages(all.available = TRUE)) #Use this to list the data sets in all *available* packages.
+
+smoke <- read.table("smoking.txt", header = TRUE, sep = "\t",
+    stringsAsFactors = TRUE)
+str(smoke, vec.len = 2)
+ggplot(mapping = aes(x = smoking, y = mortality), data = smoke) +
+    geom_point()
+smoke_lm <- lm(mortality ~ smoking, data = smoke)
+smoke_lm
+str(smoke_lm)
+summary(smoke_lm)
+anova(smoke_lm)
+
 
 ```
 
