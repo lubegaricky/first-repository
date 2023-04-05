@@ -15,7 +15,7 @@ knitr::opts_chunk$set(echo = TRUE)
 # library(tidyr)
 # library(dplyr)
 
-pacman::p_load(dplyr,readr,tidyr,readxl,ggplot2,skimr,gtExtras)
+pacman::p_load(dplyr,readr,tidyr,readxl,ggplot2,skimr,gtExtras,ggfortify)
 
 # dt <- readxl::read_excel("refine_original_toy_data.xlsx")[1]
 # dt <- dt[,1] %>%
@@ -340,6 +340,77 @@ smoke_lm
 str(smoke_lm)
 summary(smoke_lm)
 anova(smoke_lm)
+
+smoke_risk_lm <- lm(mortality ~ risk.group, data = smoke)
+anova(smoke_risk_lm)
+summary(smoke_risk_lm)
+
+ggplot(mapping = aes(x = smoking, y = mortality), data = smoke) +
+    geom_point() + geom_smooth(method = "lm", se = TRUE) #We can easily include the standard errors by specifying the se = TRUE argument.
+
+# You can also do this with R’s base graphics. Note though that the fitted line extends beyond the data which is not great practice.
+plot(smoke$smoking, smoke$mortality, xlab = "smoking rate", ylab = " mortality rate")
+abline(smoke_lm, col = "red")
+
+smoke_res <- resid(smoke_lm)
+smoke_fit <- fitted(smoke_lm)
+ggplot(mapping = aes(x = smoke_fit, y = smoke_res)) + geom_point() +
+    geom_hline(yintercept = 0, colour = "red", linetype = "dashed")
+
+# To check for normality of residuals we can use the Q-Q plot using the residuals stored in the smoke_res object
+ggplot(mapping = aes(sample = smoke_res)) + stat_qq() + stat_qq_line()
+qqnorm(smoke_res)
+qqline(smoke_res)
+
+# using the plot() function on the model object smoke_lm.
+par(mfrow = c(2, 2))
+plot(smoke_lm)
+# You can also produce these diagnostic plots using ggplot by installing the package ggfortify and using the autoplot() function.
+library(ggfortify)
+autoplot(smoke_lm, which = 1:6, ncol = 2, label.size = 3)
+
+smoke_lm2 <- update(smoke_lm, subset = -2) # the update()function examines the effect of removing one of these points on the parameter estimates
+summary(smoke_lm2)#Let’s remove data point 2 (miners, mortality = 116 and smoking = 137) and store the results in a new object called smoke_lm2.
+par(mfrow = c(2, 2))
+plot(dffits(smoke_lm), type = "l")
+plot(rstudent(smoke_lm))
+matplot(dfbetas(smoke_lm), type = "l", col = "blue")
+lines(sqrt(cooks.distance(smoke_lm)), lwd = 2)
+
+# Functions in R
+# just creating a dummy variable
+df <- data.frame(a = rnorm(10), b = rnorm(10), c = rnorm(10),
+    d = rnorm(10))
+?rnorm
+# normalising the variables i.e rescale each column to 0-1
+# using min - max method.
+df$a <- (df$a - min(df$a, na.rm = TRUE))/(max(df$a, na.rm = TRUE) -
+    min(df$a, na.rm = TRUE))
+df$b <- (df$b - min(df$b, na.rm = TRUE))/(max(df$b, na.rm = TRUE) -
+    min(df$b, na.rm = TRUE))
+df$c <- (df$c - min(df$c, na.rm = TRUE))/(max(df$c, na.rm = TRUE) -
+    min(df$c, na.rm = TRUE))
+df$d <- (df$d - min(df$d, na.rm = TRUE))/(max(df$d, na.rm = TRUE) -
+    min(df$d, na.rm = TRUE))
+df
+# consider writing a function whenever you’ve copied and pasted a block of code more than twice (i.e. you now have three copies of the same code)
+rescale_var <- function(var){
+  minimum <- min(var, na.rm = TRUE)
+  maximum <- max(var, na.rm = TRUE)
+  var_new <- (var -minimum)/(maximum - minimum)
+  return(var_new)
+}
+
+df$a <- rescale_var(df$a)
+df$b <- rescale_var(df$b)
+df$c <- rescale_var(df$c)
+df$d <- rescale_var(df$d)
+
+for (name in colnames(df)) {
+    df$name <- rescale_var(df$name) 
+} #you can use loop to ease your work
+
+
 
 
 ```
