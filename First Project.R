@@ -1144,4 +1144,54 @@ Type.factor5 <- factor(Type,ordered = TRUE, levels= c("Small","Medium","Tall","T
 Type.factor5
 Type.factor5[1]>Type.factor5[4]
 
-as.
+as.integer(Type.factor5)
+
+#----------- Create a sequence
+v1 <- seq(0,20,by=2)
+v1
+sort(v1)
+v2 <- c(1,3,4,8,3,9)
+rev(v2) #reverse a vector
+str(v1)
+str(v2)
+append(v1,v2)
+
+#check the class of an R Object
+is.vector(v1)
+is.list(v2)
+is.list(v1)
+
+#Convert the vector to a list
+as.list(v2)
+
+#Convert the vector to a matrix
+as.matrix(v2)
+
+#Sample 2 random values between 10 & 20
+sample(x=10:20,3) #The values change everytime you run this code
+
+ceiling(45.13829472)
+floor(45.13829472)
+trunc(56.8947)
+
+# -----------Regular Expressions---------
+text1 <- "R is lots of fun!"
+grepl('fun',text1) #returns a logical value indicating if the pattern was found 
+grepl('learn',text1)
+
+vector <- c('a','b','c','d','e')
+grep('b',vector)
+grep('k',vector)
+
+# Working with time stamps
+Sys.Date() #returns the current system date
+Today <- Sys.Date() #Set as a variable
+Today
+
+as.Date('1985-10-13') #The YYYY-MM-DD
+
+# Using Format; %b month abbreviated, %d day of the month & %y as year in 2 digits
+as.Date("Nov-03-09",format="%b-%d-%y")
+
+# Using Format; %B for Full month name & %Y for year in 4 digits
+as.Date("2009-03-Nov",format="%Y-%d-%B")
