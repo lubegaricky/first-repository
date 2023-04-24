@@ -722,7 +722,7 @@ add_num(30,40)
 # Add a vector to a number
 add_num(c(10,20,30),5)
 
-# Functions with default arguements
+# Functions with default arguments
 hello_name1 <- function(name='Ricky'){
   print(paste('Hello',name))
 }
@@ -741,7 +741,7 @@ full_name()
 full.name <- full_name('Don','Bradman')
 full.name()
 
-# Builtin Functions
+# Built-in Functions
 # Generate 1000 random values from a normal distribution of mean 0 and 1
 normalDistr <-rnorm(1000,0,1)
 mean(normalDistr)
@@ -803,3 +803,345 @@ expo_value(normalDistr,hist=TRUE)
 v <- "I'm a Global Variable"
 stuff <- "I'm Global Stuff"
 
+# ----------Continued-------
+fun <- function(stuff){
+  print(v)
+  stuff <- 'Reassign stuff inside the function'
+  print(stuff)
+}
+
+print(v)
+print(stuff)
+fun(stuff) #Reassignment only happens in the scope of function
+print(stuff)
+
+# Create a function to find the final amount to be paid by a customer after adding 20% tax to the purchased amount
+amount <- function(x=100)
+{
+  t=x+x*(20/100)
+  return(t)
+}
+
+amount(100)
+
+#-------------------------
+
+amount1 <- function(amt)
+{
+  if(amt>0) famt=amt+amt*(20/100)
+  if(amt<=0) famt=amt
+  return(famt)
+}
+
+amount1(100)
+amount1(0)
+
+# Check the argument and the body of the function
+args(amount1)
+body(amount1)
+
+# Example to understand the scope
+f1 <- function(x)
+{
+  y=10
+  g1=function(x)
+  {
+    y+x*x
+  }
+  g1(x)
+}
+
+f1(10)
+
+#---------------------
+
+g2 <- function(x)
+{
+  y+(x*x)
+}
+f2 <- function(x)
+{
+  y=10
+  g2(x)
+}
+
+f2(10) #f2 internally calls g2
+
+#-------------
+
+g2 <- function(x,y)
+{
+  y+(x*x)
+
+ f2 <- function(X)
+  {
+    y=10
+    g2(x,y)
+}
+}
+
+f2(10)
+
+# Example 1
+status <- function(marks)
+{
+  result="Not Defined"
+  if(marks>50) result="Pass"
+  message("Your Result is"," ", result)
+}
+
+status(60)
+status(30)
+
+#Example 2
+status <- function(age)
+{
+  ageGrp="Not Defined"
+  Vote="Not Defined"
+  if(age>=18)
+  {
+    ageGrp="Adult"
+    Vote="Yes"
+  }
+  message("Your age group is", " ", ageGrp)
+  message("Voting Status is", " ",  Vote)
+}
+
+status(13)
+status(28)
+status(17.9)
+status(17.9999999999)
+status(18.03)
+
+#Example to convert a name into uppercase
+
+status <- function(name)
+{
+  len <- nchar(name)
+  if(len>5) name=toupper(name)
+  message("User given name is ", name)
+}
+
+status("Stuart")
+status("Hugh")
+
+#Example to calculate Bonus
+get_bonus <- function(salary,exp)
+{
+  if(exp>5)
+  {
+    bonus_per=10
+  }else
+  {
+    bonus_per=5
+  }
+  bonus=salary*(bonus_per/100)
+  return(bonus)
+}
+
+get_bonus(25000,6)
+get_bonus(25000,3)
+
+#Example for multiple conditions & multiple actions
+get_group <- function(age)
+{
+  if(age>0)
+  {              #-------------nested If----
+    if(age<18)
+    {
+      ageGrp="KIDS"
+    }else if(age<60)
+    {
+      ageGrp="ADULT"
+    }else
+    {
+      ageGrp="SENIOR"
+    }
+  }else
+  {
+    ageGrp="Not Defined"
+    message("Wrong Age")
+  }
+  message("your age group is ", ageGrp)
+}
+
+get_group(10)
+get_group(40)
+get_group(65)
+get_group(-11)
+
+# ------------Using the Switch function-------------
+# Returns value matched with the first argument
+# First argument should be a character
+
+# Example to return hra amount based on cities, house rent allowance
+HRA <- function(city)
+{
+  hra_amt <- switch(toupper(city),
+                    BLR=7500,
+                    MUM=1000,
+                    DEL=8000,
+                    CHN=7500,
+                    5000
+                    )
+  return(hra_amt)
+}
+
+HRA("BLR")
+HRA("PUNE")
+HRA("blr")
+
+# Example to return the Salary band
+salary_range <- function(band)
+{
+  range <- switch (band,
+                   L1="10000-15000",
+                   L2="15000-25000",
+                   L3="25000-40000"
+  )
+  return(range)
+}
+
+salary_range("L1")
+salary_range("B1")
+
+# ---------------Using Repeat in R------------
+time <- 15
+repeat
+{
+  message("Hello, Welcome to this R practice session")
+  if(time>=20) break
+  time=time+1
+}
+
+#R function to find the square of any user given number
+# If the square value<100, then increment the user value by 1 and find the square again.
+# Repeat this step till the square exceeds 100
+
+sqr <- function(n)
+{
+  repeat
+  {
+    square=n*n
+    message("The square is ", square)
+    if(square>=100) break
+    n=n+1
+  }
+  return(n)
+}
+
+sqr(6)
+args(sqr)
+body(sqr)
+sqr(2)
+
+# R function to find the balance in a bank account after n years if I have deposited x amount in the beginning. 
+# The bank gives interest at a rate of 8% p.a.
+
+get_finalbal <- function(amt,year,rate)
+{
+  for(i in 1:year) #the for loop
+  {
+    interest=round(amt*rate/100,2)
+    finalamt=amt+interest
+    message(" Year= ",i ,", amt= ",amt,", Interest= ",interest," & final amount= ",finalamt)
+    amt=finalamt
+  }
+  return(finalamt)
+}
+
+get_finalbal(5000,5,8)
+get_finalbal(10000,10,5)
+
+# R function to find the total number of years required to raise $8000 if the user deposits $550 per month.
+req_years <- function(amount=550)
+{
+  famt=0;month=0
+  while(famt<=8000)
+  {
+    month=month+1
+    famt=famt+amount
+    message("Month= ",month," & the final amount=",famt)
+  }
+  year=month/12
+  return(year)
+}
+
+req_years()
+req_years(750)
+
+# ---------------#Built-in Functions---------------
+testnums <- seq(0,50,by=2) #---- the sequence function
+testnums
+class(testnums)
+typeof(testnums)
+
+v <- c(testnums)
+v
+sort(v) #---------the sort function
+sort(v,decreasing = TRUE)
+
+v2 <- c(testnums)
+rev(v2) #-----the reverse function
+
+v3 <- c(99,2,3,78,5,100,4)
+rev(v3)
+
+v4 <- append(v2,v3)
+v4
+
+text <- "R is a Programming Language for DS"
+grep('language',text)
+grep('Language',text)
+
+
+# ------------Factors in R--------------
+bloodgrp <- c("B","AB","O","A","O","O","A","B")
+bloodgrp
+bloodgrp_factor <- factor(bloodgrp)
+bloodgrp_factor
+str(bloodgrp_factor)
+
+blood_factor2 <- factor(bloodgrp, levels = c("O","A","B","AB"))
+blood_factor2
+str(blood_factor2)
+levels(bloodgrp_factor) <- c("BT_A","BT_AB","BT_B","BT_O")
+bloodgrp_factor
+factor(bloodgrp,labels =c("BT_A","BT_AB","BT_B","BT_O"))
+
+bloodgrp_factor[1]<bloodgrp_factor[2]
+
+dress_size <- c("M","L","S","S","L","M","L","M")
+dress_size_factor <- factor(dress_size, ordered = TRUE, levels = c("S","M","L"))
+dress_size_factor
+dress_size_factor[1]<dress_size_factor[2]
+
+Type <- c("s","m","l","s","l","m")
+Type[3]>Type[4]
+Type[1]>Type[2]
+Type[2]>Type[3]
+
+Type.factor <- factor(TRUE)
+#default nominal factor
+
+Type.factor
+
+Type.factor2 <- factor(Type,ordered = TRUE)
+#Factor created in ordinal
+Type.factor2
+
+Type.factor3 <- factor(Type,ordered = TRUE, levels =c("s","m","l"))
+# Ordered factor with user given order
+Type.factor3
+
+Type.factor4 <- factor(Type,ordered = TRUE, levels= c("s","m","l"), labels = c("small","medium,","large"))
+Type.factor4
+
+Type <- c("Small","Tall","Tallest","Medium","Small",
+         "Medium","Tallest","Tall","Small","Small")
+Type
+Type.factor5 <- factor(Type,ordered = TRUE, levels= c("Small","Medium","Tall","Tallest"))
+Type.factor5
+Type.factor5[1]>Type.factor5[4]
+
+as.
