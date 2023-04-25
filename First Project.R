@@ -1195,3 +1195,17 @@ as.Date("Nov-03-09",format="%b-%d-%y")
 
 # Using Format; %B for Full month name & %Y for year in 4 digits
 as.Date("2009-03-Nov",format="%Y-%d-%B")
+
+
+
+# -----------------Data Manipulation in R (dplyr)----------------
+pacman::p_load(dplyr,nycflights13)
+install.packages("nycflights13")
+data(package="nycflights13")
+?nycflights13
+??nycflights13
+
+View(flights)
+head(flights)
+
+f1 <- filter(flights,month==07) # 

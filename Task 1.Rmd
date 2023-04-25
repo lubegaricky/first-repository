@@ -304,7 +304,7 @@ t.test(atmos$moisture ~ atmos$treatment, var.equal = TRUE)
 var.test(atmos$moisture ~ atmos$treatment)
 
 pollution <- read.table("pollution.txt", header = TRUE)
-str(pollution)
+str(pollution) 
 t.test(pollution$down, pollution$up, paired = TRUE)
 wilcox.test(pollution$down, pollution$up, paired = TRUE)
 
@@ -416,7 +416,6 @@ for (name in colnames(df)) {
 } #you can use loop to ease your work
 
 ```
-
 
 ```{r New Code for Functions in R}
 
