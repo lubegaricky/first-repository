@@ -203,7 +203,7 @@ df3$Age
 df3[ranks,]
 df3[order(df3$Age,decreasing=TRUE),]
 
-#Vectors in R >>> Use the c()funciton and pass in the values
+#Vectors in R >>> Use the c()function and pass in the values
 
 #Create vectors in R
 vec1<-c(10,20,40)
@@ -501,7 +501,7 @@ pass1
 sum(pass1,na.rm = T)
 
 
-# -----------Dataframes in R-----------
+# -----------Data frames in R-----------
 #Checklist of pre-loaded datasets
 
 data()
@@ -1146,7 +1146,7 @@ Type.factor5[1]>Type.factor5[4]
 
 as.integer(Type.factor5)
 
-#----------- Create a sequence
+#----------- Create a sequence------------
 v1 <- seq(0,20,by=2)
 v1
 sort(v1)
@@ -1197,6 +1197,10 @@ as.Date("Nov-03-09",format="%b-%d-%y")
 as.Date("2009-03-Nov",format="%Y-%d-%B")
 
 
+<<<<<<< HEAD
+
+=======
+>>>>>>> e09eb9de6f9c5caa03895b2fc7d51a0dc033c205
 
 # -----------------Data Manipulation in R (dplyr)----------------
 pacman::p_load(dplyr,nycflights13)

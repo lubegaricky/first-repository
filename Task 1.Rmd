@@ -87,7 +87,10 @@ dt <- dt %>%
         1, 0))
 ```
 
+
 ```{r Working with Data}
+# ---------------Working with Data---------------------
+
 # install th read r package
 # install.packages(readr)
 # load the read r package
@@ -157,9 +160,12 @@ write.csv(sales_report, file = "C:/Users/RichardLubega/Downloads/R Projects/Expo
 
 ```
 
+
 ```{r Task 1}
 summary(sales_report)
 
+# ------------------------Task 1---------------------------------------
+  
 # Load a new data file named “customer_data.xlsx” into RStudio.
 excel_file <- readxl::read_xlsx("demo excel data.xlsx")
 skim(excel_file)
@@ -183,7 +189,11 @@ writexl::write_xlsx(excel_file,path = "my_data.xlsx")
 
 ```
 
+
 ```{r Task 2}
+
+# -------------------Task 2----------------------
+
 data(iris)
 ?iris
 flower_data <- iris
@@ -213,7 +223,11 @@ hist(x= flower_data$Petal.Width)
 
 ```
 
+
 ```{r Data Wrangling Packages}
+
+# --------------------Data Wrangling-----------------------
+
 # A data set from the ggplot2 package called msleep.
 data_set1 <- msleep
 
@@ -281,7 +295,8 @@ data_set1 %>%
     mutate(sleep_total_min = sleep_total * 60) #we can create a new column
 
 
-#Statistics in R
+# --------------Statistics in R------------------
+
 gtExtras::gt_plt_summary(data_set1)
 
 t.test(data_set1$sleep_total, mu = 10)
@@ -382,7 +397,14 @@ plot(rstudent(smoke_lm))
 matplot(dfbetas(smoke_lm), type = "l", col = "blue")
 lines(sqrt(cooks.distance(smoke_lm)), lwd = 2)
 
-# Functions in R
+
+```
+
+
+```{r New Code for Functions in R}
+
+#-------------------------Functions in R-----------------------
+
 # just creating a dummy variable
 df <- data.frame(a = rnorm(10), b = rnorm(10), c = rnorm(10),
     d = rnorm(10))
@@ -398,6 +420,7 @@ df$c <- (df$c - min(df$c, na.rm = TRUE))/(max(df$c, na.rm = TRUE) -
 df$d <- (df$d - min(df$d, na.rm = TRUE))/(max(df$d, na.rm = TRUE) -
     min(df$d, na.rm = TRUE))
 df
+
 # consider writing a function whenever you’ve copied and pasted a block of code more than twice (i.e. you now have three copies of the same code)
 rescale_var <- function(var){
   minimum <- min(var, na.rm = TRUE)
