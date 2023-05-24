@@ -203,7 +203,7 @@ df3$Age
 df3[ranks,]
 df3[order(df3$Age,decreasing=TRUE),]
 
-#Vectors in R >>> Use the c()funciton and pass in the values
+#Vectors in R >>> Use the c()function and pass in the values
 
 #Create vectors in R
 vec1<-c(10,20,40)
@@ -1146,7 +1146,7 @@ Type.factor5[1]>Type.factor5[4]
 
 as.integer(Type.factor5)
 
-#----------- Create a sequence
+#----------- Create a sequence------------
 v1 <- seq(0,20,by=2)
 v1
 sort(v1)
@@ -1195,7 +1195,6 @@ as.Date("Nov-03-09",format="%b-%d-%y")
 
 # Using Format; %B for Full month name & %Y for year in 4 digits
 as.Date("2009-03-Nov",format="%Y-%d-%B")
-
 
 
 # -----------------Data Manipulation in R (dplyr)----------------
