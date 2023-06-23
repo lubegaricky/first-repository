@@ -23,8 +23,8 @@ pacman::p_load(dplyr,readr,tidyr,readxl,ggplot2,skimr,gtExtras,ggfortify)
 # dt <- dt[,1] %>%
 # separate(sep = ",")
 
-# dt <- read_csv("refine_original_toy_data_csv.csv")
-# unique(dt$)
+dt <- read_csv("refine_original_toy_data.csv")
+unique(dt)
 
 ```
 
@@ -39,6 +39,7 @@ dt <- dt %>%
         "van_houten", company)) %>%
     mutate(company = ifelse(grepl("^uni", company, ignore.case = TRUE),
         "unilever", company))
+
 ```
 
 ```{r Problem 3}
@@ -85,8 +86,8 @@ dt <- dt %>%
         1, 0)) %>%
     mutate(product_tablet = ifelse(product_category == "Tablet",
         1, 0))
+View(dt)
 ```
-
 
 ```{r Working with Data}
 # ---------------Working with Data---------------------
@@ -121,7 +122,7 @@ View(excel_data)
 # excel_data <- read_excel("data/demo excel data.xlsx")
 # if the excel workbook has many sheets and you want to
 # load a specific one, e,g, sheet two
-excel_data <- read_excel("demo excel data.xlsx", sheet = 2)
+excel_data <- read_excel("demo excel data.xlsx", sheet = 1)
 
 #Importing a Stata file
 install.packages("readstata13")
@@ -160,7 +161,6 @@ write.csv(sales_report, file = "C:/Users/RichardLubega/Downloads/R Projects/Expo
 
 ```
 
-
 ```{r Task 1}
 summary(sales_report)
 
@@ -188,7 +188,6 @@ writexl::write_xlsx(excel_file,path = "my_data.xlsx")
 # writexl::write_xlsx(data_object, file = "my_data.rda") #exporting excel data file
 
 ```
-
 
 ```{r Task 2}
 
@@ -223,8 +222,7 @@ hist(x= flower_data$Petal.Width)
 
 ```
 
-
-```{r Data Wrangling Packages}
+```{r Data Wrangling Packages, echo=TRUE}
 
 # --------------------Data Wrangling-----------------------
 
@@ -400,8 +398,7 @@ lines(sqrt(cooks.distance(smoke_lm)), lwd = 2)
 
 ```
 
-
-```{r New Code for Functions in R}
+```{r New Code for Functions in R Language}
 
 #-------------------------Functions in R-----------------------
 
@@ -442,7 +439,7 @@ for (name in colnames(df)) {
 
 ```{r New Code for Functions in R}
 
-
+# BlChwhS
 ```
 
 Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
