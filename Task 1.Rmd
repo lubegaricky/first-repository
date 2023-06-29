@@ -181,7 +181,7 @@ summary(excel_file)
 pacman::p_load(writexl)
 writexl::write_xlsx()
 
-writexl::write_xlsx(excel_file, path ="C:/Users/RichardLubega/Downloads/R Projects/Exported Files/my_data.xlsx")
+# writexl::write_xlsx(excel_file, path ="C:/Users/RichardLubega/Downloads/R Projects/Exported Files/my_data.xlsx")
 
 writexl::write_xlsx(excel_file,path = "my_data.xlsx")
 
@@ -437,6 +437,4 @@ for (name in colnames(df)) {
 
 ```
 
-```{r New Code for Functions in R}
-# BlChwhS
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+\`\``{r New Code for Functions in R} # BlChwhS Note that the`echo = FALSE\` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
