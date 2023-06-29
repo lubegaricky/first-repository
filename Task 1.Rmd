@@ -181,7 +181,7 @@ summary(excel_file)
 pacman::p_load(writexl)
 writexl::write_xlsx()
 
-writexl::write_xlsx(excel_file, path ="C:/Users/RichardLubega/Downloads/R Projects/Exported Files/my_data.xlsx")
+# writexl::write_xlsx(excel_file, path ="C:/Users/RichardLubega/Downloads/R Projects/Exported Files/my_data.xlsx")
 
 writexl::write_xlsx(excel_file,path = "my_data.xlsx")
 
